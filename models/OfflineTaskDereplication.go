@@ -131,7 +131,8 @@ func PrepareSql(aimTbl string, referTbl string) string {
     if EngineType == "vds" {
         resFields = []string{"log_time", "threatname", "subfile", "local_threatname", 
                              "local_vtype", "local_platfrom", "local_vname", "local_extent", 
-                             "local_enginetype", "local_logtype", "local_engineip"}
+                             "local_enginetype", "local_logtype", "local_engineip",
+                             "sourceip", "destip", "sourceport", "destport", "app_file", "http_url"}
     } else {
         resFields = []string{"time", "client", "rev", "msg", "attack", "severity", "maturity", 
                              "accuracy", "hostname", "uri", "unique_id", "ref", "tags", "rule_file", 
@@ -211,7 +212,8 @@ func VdsEngine(sql string) []VdsContent {
     for rows.Next() {
         err := rows.Scan(&res.LogTime, &res.ThreatName, &res.SubFile, &res.LocalThreatName, &res.LocalVType,
                          &res.LocalPlatfrom, &res.LocalVName, &res.LocalExtent, &res.LocalEngineType,
-                         &res.LocalLogType, &res.LocalEngineIP)
+                         &res.LocalLogType, &res.LocalEngineIP, &res.SrcIp, &res.DestIp, &res.SrcPort, 
+                         &res.DestPort, &res.AppFile, &res.HttpUrl)
         if err != nil {
             log.Fatal(err)
         }
